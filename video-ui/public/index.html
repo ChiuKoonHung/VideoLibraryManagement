@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Video Library System</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+
+function addVideo(e)
+{
+	e.preventDefault();
+	 
+	
+	var title = document.getElementById('title').value;
+
+	var tag = document.getElementById('tag').value;
+
+	var link = document.getElementById('link').value;
+	
+	var createdDate = document.getElementById('createdDate').value;
+
+	var data = {};
+	data.videoTitle = title;
+	data.videoTag = tag;
+	data.videoLink = link;
+	data.createdDate = createdDate;
+	
+	console.log('form submitted' , data);
+	
+	axios.post('http://localhost:8090/video', data)
+    .then(response => {
+    	 console.log(`Added Video Details`, response.data);
+    })
+    .catch(error => console.error(error));
+	return false;
+}
+
+function getVideoTitle(e)
+{
+	e.preventDefault();
+
+	var title = document.getElementById('title').value;
+
+
+	axios.get('http://localhost:8090/video/'+title)
+	.then(response => {
+        console.log(`GET list video details`, response.data[1].videoTitle);
+    })
+    .catch(error => console.error(error));
+}
+
+
+</script>
+</head>
+<body>
+
+<div>
+<h1> Add Video</h1>
+<form onsubmit="addVideo(event)">
+  <label for="title">Video Title:</label><br>
+  <input type="text" id="title" name="title" required="required"><br>
+  <label for="tag">Video Tag:</label><br>
+  <input type="text" id="tag" name="tag" required="required"><br>
+  <label for="link">Video Link:</label><br>
+  <input type="text" id="link" name="link" required="required"><br>
+  <label for="createdDate">Created Date:</label><br>
+  <input type="datetime-local" id="createdDate" name="createdDate" required="required"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+<div>
+<h1> Get Video</h1>
+<form onsubmit="getVideoTitle(event)">
+  <label for="title">Get Video Title:</label><br>
+  <input type="text" id="title" name="title"><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+</body>
+</html>
