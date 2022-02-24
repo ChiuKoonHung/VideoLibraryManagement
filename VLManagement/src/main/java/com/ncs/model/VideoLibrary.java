@@ -2,6 +2,7 @@ package com.ncs.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,27 +12,35 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 public class VideoLibrary {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Long id;
 	
 	@NotEmpty (message = "Video title cannot be empty!")
+	@Column(name = "VIDEO_TITLE")
 	private String videoTitle;
 	
 	@NotEmpty (message = "Video tag cannot be empty!")
 	@Size (min=2, max=10, message = "Video title between 2 to 10")
+	@Column(name = "VIDEO_TAG")
 	private String videoTag;
 	
 	@NotEmpty (message = "Video link cannot be empty!")
+	@Column(name = "VIDEO_LINK")
+//	@URL
 	private String videoLink;
-		
+	
+	@Column(name = "CREATED_DATE", nullable = false, updatable = false)
 	private LocalDateTime createdDate;
 	
 	@UpdateTimestamp
+	@Column(name = "UPDATED_DATE")
 	private LocalDateTime updatedDate;
 	
 	public Long getid() {

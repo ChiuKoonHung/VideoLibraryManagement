@@ -12,72 +12,180 @@ function addVideo(e)
 	e.preventDefault();
 	 
 	
-	var title = document.getElementById('title').value;
+	var add_title = document.getElementById('add_title').value;
 
-	var tag = document.getElementById('tag').value;
+	var add_tag = document.getElementById('add_tag').value;
 
-	var link = document.getElementById('link').value;
+	var add_link = document.getElementById('add_link').value;
 	
-	var createdDate = document.getElementById('createdDate').value;
+	var add_createdDate = document.getElementById('add_createdDate').value;
 
 	var data = {};
-	data.videoTitle = title;
-	data.videoTag = tag;
-	data.videoLink = link;
-	data.createdDate = createdDate;
+	data.videoTitle = add_title;
+	data.videoTag = add_tag;
+	data.videoLink = add_link;
+	data.createdDate = add_createdDate;
 	
 	console.log('form submitted' , data);
 	
-	axios.post('http://localhost:8090/video', data)
+	axios.post('http://localhost:8090/video/', data)
     .then(response => {
     	 console.log(`Added Video Details`, response.data);
+         const myArray = JSON.stringify(response.data);
+         document.getElementById("display_add").innerHTML = myArray;
     })
     .catch(error => console.error(error));
 	return false;
+}
+
+function getVideo()
+{
+
+	axios.get('http://localhost:8090/video/')
+	.then(response => {
+        console.log(`GET list video details`, response.data);
+        const myArray = JSON.stringify(response.data);
+        document.getElementById("display_all").innerHTML = myArray;
+    })
+    .catch(error => console.error(error));
 }
 
 function getVideoTitle(e)
 {
 	e.preventDefault();
 
-	var title = document.getElementById('title').value;
+	var get_title = document.getElementById('get_title').value;
+	var get_id = document.getElementById('get_id').value;
+	var get_tag = document.getElementById('get_tag').value;
 
 
-	axios.get('http://localhost:8090/video/'+title)
+	axios.get('http://localhost:8090/video/getall/', {
+		params: {
+			id: get_id,
+			videoTitle: get_title,
+			videoTag: get_tag			
+		}
+	})
 	.then(response => {
-        console.log(`GET list video details`, response.data[1].videoTitle);
+        console.log(`GET list video details`, response.data);
+        const myArray = JSON.stringify(response.data);
+        document.getElementById("display_get").innerHTML = myArray;
     })
     .catch(error => console.error(error));
 }
 
+function putVideo(e)
+{	 	
+	e.preventDefault();
+	
+	var id2 = document.getElementById('id2').value;
+	
+	var title2 = document.getElementById('title2').value;
+
+	var tag2 = document.getElementById('tag2').value;
+
+	var link2 = document.getElementById('link2').value;
+
+	var data = {};
+	data.id = id2;
+	data.videoTitle = title2;
+	data.videoTag = tag2;
+	data.videoLink = link2;
+	
+	console.log('form submitted' , data);
+	
+	axios.put('http://localhost:8090/video/update/'+id2, data)
+    .then(response => {
+    	 console.log(`Updated video details`, response.data);
+         const myArray = JSON.stringify(response.data);
+         document.getElementById("display_update").innerHTML = myArray;
+    })
+    .catch(error => console.error(error));
+	return false;
+}
+
+function deleteVideo()
+{
+	var id3 = document.getElementById('id3').value;
+
+	var data = {};
+	data.id = id3;
+	
+	console.log('deleted' , data);
+	
+	axios.delete('http://localhost:8090/video/delete/'+id3, data)
+    .then(response => {
+    	 console.log(`Deleted`);
+    })
+    .catch(error => console.error(error));
+	return false;
+}
 
 </script>
 </head>
 <body>
+<button onclick="getVideo()">Get all Videos</button>
+<div id="display_all"></div>
+
+<hr>
 
 <div>
 <h1> Add Video</h1>
 <form onsubmit="addVideo(event)">
-  <label for="title">Video Title:</label><br>
-  <input type="text" id="title" name="title" required="required"><br>
-  <label for="tag">Video Tag:</label><br>
-  <input type="text" id="tag" name="tag" required="required"><br>
-  <label for="link">Video Link:</label><br>
-  <input type="text" id="link" name="link" required="required"><br>
-  <label for="createdDate">Created Date:</label><br>
-  <input type="datetime-local" id="createdDate" name="createdDate" required="required"><br><br>
-  <input type="submit" value="Submit">
+  <label for="add_title">Video Title:</label><br>
+  <input type="text" id="add_title" name="add_title" required="required"><br>
+  <label for="add_tag">Video Tag:</label><br>
+  <input type="text" id="add_tag" name="add_tag" required="required"><br>
+  <label for="add_link">Video Link:</label><br>
+  <input type="text" id="add_link" name="add_link" required="required"><br>
+  <label for="add_createdDate">Created Date:</label><br>
+  <input type="datetime-local" id="add_createdDate" name="add_createdDate" required="required"><br><br>
+  <input type="submit" value="Add"><br><br>
 </form>
+<div id="display_add"></div>
 </div>
+
+<hr>
 
 <div>
 <h1> Get Video</h1>
 <form onsubmit="getVideoTitle(event)">
-  <label for="title">Get Video Title:</label><br>
-  <input type="text" id="title" name="title"><br>
-  <input type="submit" value="Submit">
+  <label for="get_id">Id to retrieve:</label><br>
+  <input type="number" id="get_id" name="get_id"><br>
+  <label for="get_title">Video Title to retrieve:</label><br>
+  <input type="text" id="get_title" name="get_title"><br>
+  <label for="get_tag">Video Tag to retrieve:</label><br>
+  <input type="text" id="get_tag" name="get_tag" required="required"><br><br>
+  <input type="submit" value="Get"><br><br>
 </form>
+<div id="display_get"></div>
 </div>
 
+<hr>
+
+<div>
+<h1> Update Video</h1>
+<form onsubmit="putVideo(event)">
+  <label for="id2">Id to be updated:</label><br>
+  <input type="number" id="id2" name="id2"><br>
+  <label for="title2">Video Title:</label><br>
+  <input type="text" id="title2" name="title2" required="required"><br>
+  <label for="tag2">Video Tag:</label><br>
+  <input type="text" id="tag2" name="tag2" required="required"><br>
+  <label for="link2">Video Link:</label><br>
+  <input type="text" id="link2" name="link2" required="required"><br><br>
+  <input type="submit" value="Update"><br><br>
+</form>
+<div id="display_update"></div>
+</div>
+
+<hr>
+
+<div>
+<h1> Delete Video</h1>
+  <label for="id3">Id to be deleted:</label><br>
+  <input type="number" id="id3" name="id3"><br><br>
+  <button onclick="deleteVideo()">Delete Video</button>
+</div>
 </body>
 </html>

@@ -32,20 +32,22 @@ public class VideoController {
 	
 	@GetMapping
 	public ResponseEntity<List<VideoLibrary>> getVideoLibrary() {
+		System.out.println("getvideolibrary");
 		return new ResponseEntity<List<VideoLibrary>>(videoService.getVideoLibrary(), HttpStatus.OK);		
 	}	
 	
-	@GetMapping("/{id}")
+	@GetMapping("/vid/{id}")
 	public ResponseEntity<VideoLibrary> getVideoId(@PathVariable Long id) {
 		return new ResponseEntity<VideoLibrary>(videoService.getVideoId(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{videoTitle}")
+	@GetMapping("/vtitle/{videoTitle}")
 	public ResponseEntity<List<VideoLibrary>> getVideoTitle(@PathVariable String videoTitle) {
+		System.out.println("working");
 		return new ResponseEntity<List<VideoLibrary>>(videoService.getVideoByTitle(videoTitle), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{getVideoTag}")
+	@GetMapping("/vtag/{getVideoTag}")
 	public ResponseEntity<List<VideoLibrary>> getVideoByTag(@PathVariable String videoTag) {
 		return new ResponseEntity<List<VideoLibrary>>(videoService.getVideoByTag(videoTag), HttpStatus.OK);
 	}
@@ -60,7 +62,7 @@ public class VideoController {
 		return new ResponseEntity<VideoLibrary>(videoService.add(videolibrary), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<VideoLibrary> update(@Valid @RequestBody VideoLibrary videolibrary, @PathVariable Long id) {
 		if (id != videolibrary.getid()) {
 			throw new VideoIDMismatchException();
@@ -68,15 +70,11 @@ public class VideoController {
 		return new ResponseEntity<VideoLibrary>(videoService.update(videolibrary), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
 		videoService.delete(id);
 	}
 	
-//	@GetMapping("/sort-date")
-//	public ResponseEntity<List<VideoLibrary>> sortAscByDate() {
-//		return new ResponseEntity<List<VideoLibrary>>(videoService.sortAscByDate(), HttpStatus.OK);		
-//	}
 	@GetMapping("/sort")
 	public ResponseEntity<List<VideoLibrary>> sortAscByTitle(String videoTitle) {
 		return new ResponseEntity<List<VideoLibrary>>(videoService.sortAscByTitle(videoTitle), HttpStatus.OK);		
