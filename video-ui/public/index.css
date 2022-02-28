@@ -1,0 +1,41 @@
+.container-header {
+	padding: 20px 0px 0px 0px;
+}
+.container-tab {
+	padding: 0px;
+	border: thin solid; 
+	width: fit-content;
+	margin: 20px auto;
+}
+#display_all {
+	color: #333;
+	font-family: Arial;
+	font-size: 14px;
+	display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+#display_get {
+	color: #333;
+	font-family: Arial;
+	font-size: 14px;
+	display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+a, a:visited {
+	color: #333;
+	text-decoration: underline;
+	-webkit-transition-duration: .50s;
+}
+a:hover {
+	color: black;
+	background-color: #ffffff;
+}
+body {
+	color: #333;
+	font-family: Arial;
+	font-size: 14px;
+	text-align:center;
+	background-color: #f7f1f1;
+}
