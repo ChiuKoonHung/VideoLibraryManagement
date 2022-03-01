@@ -8,102 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 
-function addVideo(e)
-{
-	e.preventDefault();
-	 
-	
-	var add_title = document.getElementById('add_title').value;
-
-	var add_tag = document.getElementById('add_tag').value;
-
-	var add_link = document.getElementById('add_link').value;
-	
-	var add_createdDate = document.getElementById('add_createdDate').value;
-
-	var data = {};
-	data.videoTitle = add_title;
-	data.videoTag = add_tag;
-	data.videoLink = add_link;
-	data.createdDate = add_createdDate;
-	
-	console.log('form submitted' , data);
-	
-	axios.post('http://localhost:8090/video/', data)
-    .then(response => {
-    	 console.log(`Added Video Details`, response.data);
-         const myArray = JSON.stringify(response.data);
-         document.getElementById("display_add").innerHTML = myArray;
-    })
-    .catch(error => console.error(error));
-	return false;
-}
-
-function getVideo()
-{
-
-	axios.get('http://localhost:8090/video/')
-	.then(response => {
-        console.log(`GET list video details`, response.data);
-        const myArray = JSON.stringify(response.data);
-        document.getElementById("display_all").innerHTML = myArray;
-    })
-    .catch(error => console.error(error));
-}
-
-function getVideoTitle(e)
-{
-	e.preventDefault();
-
-	var get_title = document.getElementById('get_title').value;
-	var get_id = document.getElementById('get_id').value;
-	var get_tag = document.getElementById('get_tag').value;
-
-
-	axios.get('http://localhost:8090/video/getall/', {
-		params: {
-			id: get_id,
-			videoTitle: get_title,
-			videoTag: get_tag			
-		}
-	})
-	.then(response => {
-        console.log(`GET list video details`, response.data);
-        const myArray = JSON.stringify(response.data);
-        document.getElementById("display_get").innerHTML = myArray;
-    })
-    .catch(error => console.error(error));
-}
-
-function putVideo(e)
-{	 	
-	e.preventDefault();
-	
-	var id2 = document.getElementById('id2').value;
-	
-	var title2 = document.getElementById('title2').value;
-
-	var tag2 = document.getElementById('tag2').value;
-
-	var link2 = document.getElementById('link2').value;
-
-	var data = {};
-	data.id = id2;
-	data.videoTitle = title2;
-	data.videoTag = tag2;
-	data.videoLink = link2;
-	
-	console.log('form submitted' , data);
-	
-	axios.put('http://localhost:8090/video/update/'+id2, data)
-    .then(response => {
-    	 console.log(`Updated video details`, response.data);
-         document.getElementById("display_delete").innerHTML = "Deleted!";
-    })
-    .catch(error => console.error(error));
-	return false;
-}
-
 function deleteVideo()
 {
 	var id3 = document.getElementById('id3').value;
@@ -116,6 +20,7 @@ function deleteVideo()
 	axios.delete('http://localhost:8090/video/delete/'+id3, data)
     .then(response => {
     	 console.log(`Deleted`);
+    	 document.getElementById("display_delete").innerHTML = "Deleted!";
     })
     .catch(error => console.error(error));
 	return false;

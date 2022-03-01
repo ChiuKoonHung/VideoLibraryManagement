@@ -21,14 +21,11 @@ function addVideo(e)
 	var add_tag = document.getElementById('add_tag').value;
 
 	var add_link = document.getElementById('add_link').value;
-	
-	var add_createdDate = document.getElementById('add_createdDate').value;
 
 	var data = {};
 	data.videoTitle = add_title;
 	data.videoTag = add_tag;
 	data.videoLink = add_link;
-	data.createdDate = add_createdDate;
 	
 	console.log('form submitted' , data);
 	
@@ -69,38 +66,14 @@ function addVideo(e)
   <label for="add_title">Video Title:</label><br>
   <input type="text" id="add_title" name="add_title" required="required"><br>
   <label for="add_tag">Video Tag:</label><br>
-  <input type="text" id="add_tag" name="add_tag" required="required"><br>
+  <input type="text" id="add_tag" name="add_tag" required="required" minlength="2" maxlength="10"><br>
   <label for="add_link">Video Link:</label><br>
-  <input type="text" id="add_link" name="add_link" required="required"><br>
-  <label for="add_createdDate">Created Date:</label><br>
-  <input type="datetime-local" id="add_createdDate" name="add_createdDate" required="required"><br><br>
+  <input type="text" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" title="begin with https://" id="add_link" name="add_link" required="required"><br><br>
   <input type="submit" value="Add"><br><br>
 </form>
 
 <div id="display_add"></div>
 </div>
-
-<!--
-<div class="container">
-  <h2>Basic Table</h2>           
-  <table id="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Video Title</th>
-        <th>Video Tag</th>
-        <th>Video Link</th>
-        <th>Created Date</th>
-        <th>Updated Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id="user"></tr>
-    </tbody>
-  </table>
-</div>
--->
-
 
 </body>
 </html>

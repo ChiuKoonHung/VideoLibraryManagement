@@ -71,9 +71,9 @@ function putVideo(e)
   <label for="title2">Video Title:</label><br>
   <input type="text" id="title2" name="title2" required="required"><br>
   <label for="tag2">Video Tag:</label><br>
-  <input type="text" id="tag2" name="tag2" required="required"><br>
+  <input type="text" id="tag2" name="tag2" required="required" minlength="2" maxlength="10"><br>
   <label for="link2">Video Link:</label><br>
-  <input type="text" id="link2" name="link2" required="required"><br><br>
+  <input type="text" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" title="begin with https://" id="link2" name="link2" required="required"><br><br>
   <input type="submit" value="Update"><br><br>
 </form>
 

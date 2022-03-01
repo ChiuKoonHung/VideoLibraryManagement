@@ -1,2 +1,1 @@
 INSERT INTO VIDEO_LIBRARY (ID, VIDEO_TITLE , VIDEO_TAG, VIDEO_LINK, CREATED_DATE) VALUES (1, 'spiderman', 'spider', 'https://www.youtube.com/watch?v=ZYzbalQ6Lg8', '2022-02-23T20:15:35');
-INSERT INTO VIDEO_LIBRARY (ID, VIDEO_TITLE , VIDEO_TAG, VIDEO_LINK, CREATED_DATE) VALUES (2, 'batman', 'bat', 'https://www.youtube.com/watch?v=mqqft2x_Aa4', '2022-02-22T15:15:35');

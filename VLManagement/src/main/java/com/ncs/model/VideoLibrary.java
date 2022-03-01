@@ -1,5 +1,6 @@
 package com.ncs.model;
 
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -8,9 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.URL;
 
@@ -18,7 +19,7 @@ import org.hibernate.validator.constraints.URL;
 public class VideoLibrary {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
 	
@@ -27,20 +28,21 @@ public class VideoLibrary {
 	private String videoTitle;
 	
 	@NotEmpty (message = "Video tag cannot be empty!")
-	@Size (min=2, max=10, message = "Video title between 2 to 10")
+	@Size (min=2, max=10, message = "Video tag between 2 to 10")
 	@Column(name = "VIDEO_TAG")
 	private String videoTag;
 	
 	@NotEmpty (message = "Video link cannot be empty!")
 	@Column(name = "VIDEO_LINK")
-//	@URL
+	@URL
 	private String videoLink;
 	
-	@Column(name = "CREATED_DATE", nullable = false, updatable = false)
+	@CreationTimestamp
+	@Column(name = "CREATED_DATE", updatable = false)
 	private LocalDateTime createdDate;
 	
 	@UpdateTimestamp
-	@Column(name = "UPDATED_DATE")
+	@Column(name = "UPDATED_DATE")	
 	private LocalDateTime updatedDate;
 	
 	public Long getid() {

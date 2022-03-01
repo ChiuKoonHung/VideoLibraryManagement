@@ -17,11 +17,7 @@ public interface VideoRepository extends JpaRepository<VideoLibrary, Long> {
 	public List<VideoLibrary> findByidAndvideoTitleAndvideoTag(Long id, String videoTitle, String videoTag);
 	
 	@Query("select t from VideoLibrary t where t.id = ?1")
-	public VideoLibrary getVideoId(Long id);
-	
-	public List<VideoLibrary> findByvideoTitle(String videoTitle);
-	
-	public List<VideoLibrary> findByvideoTag(String videoTag);		
+	public VideoLibrary getVideoId(Long id);		
 		
 	@Query("select t from VideoLibrary t where t.videoTitle = ?1 order by t.createdDate asc")
 	List<VideoLibrary> findByvideoTitleOrderByDateAsc(String videoTitle);
